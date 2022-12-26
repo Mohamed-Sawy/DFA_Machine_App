@@ -1,9 +1,9 @@
 #include "TransitionManager.h"
+#include "InputValidator.h"
 #include <iostream>
 #include <set>
 
 using std::cout;
-using std::cin;
 using std::string;
 using std::set;
 
@@ -17,12 +17,11 @@ void TransitionManager::add_transitions(const set<State> &states, const set<char
     for (const State& state : states){
         for (const char& ch : characters){
             cout<<"\nstate "<<state.get_id()<<" and character "<<ch<<": ";
-            string next_state_id;
-            cin>>next_state_id;
+            string next_state_id = InputValidator::read_string();
 
             while (states.find(State(next_state_id)) == states.end()){
                 cout<<"\nPlease enter a valid state for the above condition: ";
-                cin>>next_state_id;
+                next_state_id = InputValidator::read_string();
             }
 
             transition_table.insert(Transition(state, ch, *states.find(State(next_state_id))));

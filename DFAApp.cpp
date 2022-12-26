@@ -1,9 +1,9 @@
 #include "DFAApp.h"
+#include "InputValidator.h"
 #include <iostream>
 #include <string>
 
 using std::cout;
-using std::cin;
 using std::string;
 
 void DFAApp::print_instructions() const {
@@ -16,16 +16,18 @@ void DFAApp::print_instructions() const {
 void DFAApp::DFA_menu(const DFAMachine &dfa) const {
     while (true){
         cout << "\n\n- To process a new string enter 1, To quit enter 2: ";
-        
-        int option;
-        cin >> option;
+
+        int option = InputValidator::read_int();
+        while (option != 1 && option != 2){
+            cout<<"\nPlease enter a valid option [1, 2]: ";
+            option = InputValidator::read_int();
+        }
 
         if (option == 2)
             return;
 
         cout<<"\nEnter the string to be processed: ";
-        string str;
-        cin>>str;
+        string str = InputValidator::read_string();
 
         if (dfa.is_accepted_string(str))
             cout<<"\nThis string is Accepted\n";
@@ -37,9 +39,12 @@ void DFAApp::DFA_menu(const DFAMachine &dfa) const {
 void DFAApp::start() {
     while (true){
         cout << "\n\n- To create a new DFA machine enter 1, To end the program enter 2: ";
-		
-        int option;
-        cin >> option;
+
+        int option = InputValidator::read_int();
+        while (option != 1 && option != 2){
+            cout<<"\nPlease enter a valid option [1, 2]: ";
+            option = InputValidator::read_int();
+        }
 		
         if (option == 2)
             return;

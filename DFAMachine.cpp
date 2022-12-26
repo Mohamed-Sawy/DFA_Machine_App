@@ -1,6 +1,6 @@
 #include "DFAMachine.h"
 #include <string>
-#include <iostream>
+
 using std::string;
 
 DFAMachine::DFAMachine() : machine_transition_manager(machine_state_manager.get_states(), machine_alphabet_manager.get_alphabet()) {}

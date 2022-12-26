@@ -1,8 +1,8 @@
 #include "AlphabetManager.h"
 #include <iostream>
+#include "InputValidator.h"
 
 using std::cout;
-using std::cin;
 
 AlphabetManager::AlphabetManager() {
     this->add_alphabet();
@@ -14,10 +14,8 @@ void AlphabetManager::add_alphabet() {
 		if (option == 2)
             break;
 
-        char character;
-
 		cout << "\nEnter a valid character of the DFA machine: ";
-		cin >> character;
+        char character = InputValidator::read_char();
 
 		this->characters.insert(character);
 	}
@@ -26,8 +24,11 @@ void AlphabetManager::add_alphabet() {
 int AlphabetManager::menu() const {
     cout << "\n\nTo add a character enter 1, To end enter 2: ";
 
-    int option;
-    cin >> option;
+    int option = InputValidator::read_int();
+    while (option != 1 && option != 2){
+        cout<<"\nPlease enter a valid option [1, 2]: ";
+        option = InputValidator::read_int();
+    }
 
     return option;
 }

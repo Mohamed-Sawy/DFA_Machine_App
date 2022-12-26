@@ -1,9 +1,9 @@
 #include "StateManager.h"
+#include "InputValidator.h"
 #include <iostream>
 #include <string>
 
 using std::cout;
-using std::cin;
 using std::string;
 
 StateManager::StateManager(){
@@ -23,16 +23,14 @@ void StateManager::add_states() {
             }
         }
 
-        string id;
-        bool is_start;
-        bool is_accept;
-
 		cout << "\nEnter state id (Note: state id must be unique): ";
-		cin >> id;
+        string id = InputValidator::read_string();
+
 		cout << "\nIf it's a start state enter 1 else enter 0: ";
-		cin >> is_start;
+        bool is_start = InputValidator::read_int();
+
 		cout << "\nIf it's an accept state enter 1 else enter 0: ";
-		cin >> is_accept;
+        bool is_accept = InputValidator::read_int();
 
 		this->states.insert(State(id, is_start, is_accept));
 	}
@@ -40,9 +38,12 @@ void StateManager::add_states() {
 
 int StateManager::menu() const {
 	cout << "\n\n- To add a state enter 1, To end enter 2: ";
-		
-    int option;
-    cin >> option;
+
+    int option = InputValidator::read_int();
+    while (option != 1 && option != 2){
+        cout<<"\nPlease enter a valid option [1, 2]: ";
+        option = InputValidator::read_int();
+    }
 		
     return option;
 }
